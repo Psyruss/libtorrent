@@ -818,6 +818,8 @@ error_code translate_error(std::system_error const& err, bool const write)
 				ret += static_cast<int>(file_range.size());
 				if (flags & disk_interface::volatile_read)
 					handle->dont_need(file_range);
+				else if (mode & disk_interface::flush_piece)
+					handle->page_out(file_range);
 			}
 
 			return ret;
@@ -867,6 +869,8 @@ error_code translate_error(std::system_error const& err, bool const write)
 		ph.update(file_range);
 		if (flags & disk_interface::volatile_read)
 			handle->dont_need(file_range);
+		else if (mode & disk_interface::flush_piece)
+			handle->page_out(file_range);
 
 		return static_cast<int>(file_range.size());
 	}

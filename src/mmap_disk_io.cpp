@@ -151,7 +151,8 @@ namespace {
 		return (flags & ~(disk_interface::force_copy
 				| disk_interface::sequential_access
 				| disk_interface::volatile_read
-				| disk_interface::v1_hash))
+				| disk_interface::v1_hash
+				| disk_interface::flush_piece))
 			== disk_job_flags_t{};
 	}
 #endif
@@ -1099,9 +1100,12 @@ TORRENT_EXPORT std::unique_ptr<disk_interface> mmap_disk_io_constructor(
 			{
 				if (v1)
 				{
+					// if we will call hashv2() in a bit, don't trigger a flush
+					// just yet, let hashv2() do it
+					auto const flags = v2_block ? (j->flags & ~disk_interface::flush_piece) : j->flags;
 					j->error.ec.clear();
 					ret = j->storage->hashv(m_settings, h, len, j->piece, offset
-						, file_mode, j->flags, j->error);
+						, file_mode, flags, j->error);
 					if (ret < 0) break;
 				}
 				if (v2_block)

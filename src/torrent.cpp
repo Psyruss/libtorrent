@@ -11036,9 +11036,9 @@ namespace {
 		TORRENT_ASSERT(m_storage);
 		TORRENT_ASSERT(!m_picker->is_hashing(piece));
 
-		disk_job_flags_t flags;
-		if (torrent_file().info_hashes().has_v1())
-			flags |= disk_interface::v1_hash;
+		// we just completed the piece, it should be flushed to disk
+		disk_job_flags_t const flags = disk_interface::flush_piece
+			| (torrent_file().info_hashes().has_v1() ? disk_interface::v1_hash : disk_job_flags_t{});
 		aux::vector<sha256_hash> hashes;
 		if (torrent_file().info_hashes().has_v2())
 		{
