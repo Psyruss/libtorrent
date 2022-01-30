@@ -615,7 +615,7 @@ TORRENT_EXPORT std::unique_ptr<disk_interface> mmap_disk_io_constructor(
 		iovec_t b = {buffer.data() + j->d.io.buffer_offset, j->d.io.buffer_size};
 
 		int const ret = j->storage->readv(m_settings, b
-			, j->piece, j->d.io.offset, file_mode, j->error);
+			, j->piece, j->d.io.offset, file_mode, j->flags, j->error);
 
 		TORRENT_ASSERT(ret >= 0 || j->error.ec);
 		TORRENT_UNUSED(ret);
@@ -650,7 +650,7 @@ TORRENT_EXPORT std::unique_ptr<disk_interface> mmap_disk_io_constructor(
 		iovec_t b = {buffer.data(), j->d.io.buffer_size};
 
 		int const ret = j->storage->readv(m_settings, b
-			, j->piece, j->d.io.offset, file_mode, j->error);
+			, j->piece, j->d.io.offset, file_mode, j->flags, j->error);
 
 		TORRENT_ASSERT(ret >= 0 || j->error.ec);
 		TORRENT_UNUSED(ret);
@@ -680,7 +680,7 @@ TORRENT_EXPORT std::unique_ptr<disk_interface> mmap_disk_io_constructor(
 
 		// the actual write operation
 		int const ret = j->storage->writev(m_settings, b
-			, j->piece, j->d.io.offset, file_mode, j->error);
+			, j->piece, j->d.io.offset, file_mode, j->flags, j->error);
 
 		m_stats_counters.inc_stats_counter(counters::num_writing_threads, -1);
 
