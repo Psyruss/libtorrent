@@ -714,7 +714,7 @@ void file_mapping::page_out(span<byte const> range)
 	TORRENT_UNUSED(range);
 #if TORRENT_HAVE_MAP_VIEW_OF_FILE
 	// ignore errors, this is best-effort
-	FlushViewOfFile(range.data(), static_cast<std::size_t>(m_size));
+	FlushViewOfFile(range.data(), static_cast<std::size_t>(range.size()));
 #elif TORRENT_USE_MADVISE && defined MADV_PAGEOUT
 	madvise(const_cast<byte*>(range.data()), static_cast<std::size_t>(range.size()), MADV_PAGEOUT);
 #endif
