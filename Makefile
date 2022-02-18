@@ -299,6 +299,7 @@ SOURCES = \
   chained_buffer.cpp              \
   choker.cpp                      \
   close_reason.cpp                \
+  copy_file.cpp                   \
   cpuid.cpp                       \
   crc32c.cpp                      \
   create_torrent.cpp              \
@@ -402,6 +403,7 @@ SOURCES = \
   torrent_peer_allocator.cpp      \
   torrent_status.cpp              \
   tracker_manager.cpp             \
+  truncate.cpp                    \
   udp_socket.cpp                  \
   udp_tracker_connection.cpp      \
   upnp.cpp                        \
@@ -544,6 +546,7 @@ HEADERS = \
   torrent_peer_allocator.hpp   \
   torrent_status.hpp           \
   tracker_manager.hpp          \
+  truncate.hpp                 \
   udp_socket.hpp               \
   udp_tracker_connection.hpp   \
   union_endpoint.hpp           \
@@ -840,6 +843,7 @@ TEST_SOURCES = \
   test_bloom_filter.cpp \
   test_buffer.cpp \
   test_checking.cpp \
+  test_copy_file.cpp \
   test_crc32.cpp \
   test_create_torrent.cpp \
   test_dht.cpp \
@@ -915,6 +919,7 @@ TEST_SOURCES = \
   test_torrent_info.cpp \
   test_torrent_list.cpp \
   test_tracker.cpp \
+  test_truncate.cpp \
   test_transfer.cpp \
   test_upnp.cpp \
   test_url_seed.cpp \
